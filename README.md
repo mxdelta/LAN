@@ -115,14 +115,6 @@ ncat -l 43210 < some_stuff.txt
 ncat 185.26.122.50 43210 > some_stuff.txt
 
 
-
-# Библиотека импакет
-
-git clone https://github.com/SecureAuthCorp/impacket.git
-
-https://habr.com/ru/companies/ruvds/articles/743444/  (Описание импакета)
-
-
 # выполнение CMD на удаленной машине разными портами
 
 ВиинРМ из виндовс
