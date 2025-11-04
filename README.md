@@ -449,6 +449,10 @@ smbmap -H 10.10.149.120 -u anonymous
 
 smbmap -u '' -p '' -H 10.10.149.120
 
+smbmap -u ' ' -p ' ' -H 10.10.149.120
+
+smbmap -u 'a' -p ' ' -H 10.10.149.120
+
 smbmap -H 10.129.14.128 -r notes	(рекурсивно просмотреть шару notes)
 
 smbmap -H 10.129.14.128 --download "notes\note.txt"		(скачатьь файл из шары notes)
