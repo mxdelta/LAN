@@ -1,4 +1,4 @@
-# LAB
+# LAN
 
 # Поиск дефолтеых паролей https://github.com/ztgrace/changeme
 
@@ -406,6 +406,10 @@ ssh -R 4444:127.0.0.1:4455 vboxuser@192.168.50.200 -vN
 # SMB
 
 smbcacls -N '//10.10.10.103/Department Shares'
+
+smbclient -N -L //$target - Используя нулевой сеанс
+
+smbclient -N  //$target/Home
 
 smbclient -L 10.10.217.189 - подключение по смб
 
