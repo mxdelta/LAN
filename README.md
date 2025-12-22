@@ -1,4 +1,6 @@
 # LAN
+	# захват пакетов из сети с последующим разшифрованием в wireshark
+	tcpdump -i ens192 -s 65535 -w ilfreight_pcap
 
 # Поиск дефолтеых паролей https://github.com/ztgrace/changeme
 
