@@ -320,9 +320,13 @@ route add 10.10.10.0/23 mask 255.255.254.0 192.168.50.123
 
 ssh -L 4444:localhost:5432 christine@10.129.228.195
 
+ssh -R <InternalIPofPivotHost>:8080:0.0.0.0:8000 ubuntu@<ipAddressofTarget> -vN      -где  <InternalIPofPivotHost> - адрес ubuntu во внутреннюю сеть и слушается порт 8080 внутри, и передаем на мой  0,0,0,0:8000 - слушаю я - а <ipAddressofTarget> - ее адресс во внешней сети
+
 psql -U christine -h localhost -p 4444
 
 sshuttle -r ebelford:'ThePlague61780'@10.10.11.54 -N 0.0.0.0/24 (проброс всего трафика)
+
+
 
 # ПРОБРОС ТРФИКА GOST
 
