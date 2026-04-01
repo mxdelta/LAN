@@ -466,6 +466,12 @@ route add 10.10.10.0/23 mask 255.255.254.0 192.168.50.123
  	portfwd add -l 3306 -r 127.0.0.1 -p 14406
 	meterpreter> portfwd add -l 8008 -p 2222 -r 192.168.0.101
  
+# проброс трафика в виндовс
+
+		netsh.exe interface portproxy add v4tov4 listenport=8080 listenaddress=10.129.47.201 connectport=3389 connectaddress=172.16.5.25
+		netsh.exe interface portproxy show v4tov4
+		xfreerdp /v:10.129.47.201:8080 /u:victor /p:pass@123
+
 # Смена таблици маршрутицации 
 
 	sudo ip route add 192.168.134.0/24 via 10.200.100.6
