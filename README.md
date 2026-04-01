@@ -332,6 +332,8 @@ route add 10.10.10.0/23 mask 255.255.254.0 192.168.50.123
        
 	proxychains nmap 10.0.2.10 
 
+# проброс трафика через sshuttle
+	sshuttle -r ubuntu@10.129.202.64 172.16.5.0/23 -v
 	sshuttle -r ebelford:'ThePlague61780'@10.10.11.54 -N 0.0.0.0/24 (проброс всего трафика)
 
 # Проброс трафика Metasploit
