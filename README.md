@@ -509,6 +509,22 @@ route add 10.10.10.0/23 mask 255.255.254.0 192.168.50.123
 
 		proxychains nmap -sV -sT 172.16.5.19 -p3389
 
+# Прокладка туннелей RDP и SOCKS с использованием технологии SocksOverRDP 
+
+	https://github.com/nccgroup/SocksOverRDP/releases
+	https://www.proxifier.com/download/#win-tab
+
+	на атак хосте
+	regsvr32.exe SocksOverRDP-Plugin.dll
+	
+	на промежуточном хосте - подключаемся - переносим - и запускаем SocksOverRDP-Server.exe
+
+	на атак хосте - netstat -antb | findstr 1080 -- результат
+
+	После запуска прослушивателя переносим портативную версию Proxifier на атак хост и настраиваем прокси (127,0,0,1 1080)
+
+	После настройки и запуска Proxifier мы можем запустить mstsc.exe, и он будет использовать Proxifier для перенаправления всего нашего трафика через 127.0.0.1:1080, который будет туннелироваться по RDP к 172.16.5.19, а тот, в свою очередь, будет перенаправлять его на 172.16.6.155 с помощью SocksOverRDP-server.exe.
+	
 		
 # Смена таблици маршрутицации 
 
