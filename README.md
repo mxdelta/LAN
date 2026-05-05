@@ -32,6 +32,8 @@ rdesktop -u Administrator -p Admin123 -d ROOT.DC 192.168.50.200
 
 xfreerdp /v:[IP] /u:[USERNAME] /p:'[PASSWORD]' /d:[domain] /dynamic-resolution /drive:linux,/tmp
 
+xfreerdp /v:<TARGET_IP> /u:eric /p:Letmein123 /d:child.htb.local /dynamic-resolution /cert-ignore /drive:academy,"$(pwd)"
+
 xfreerdp /v:192.168.50.200 /d:root.dc /u:administrator /p:Admin123
 
 xfreerdp /v:192.168.50.200 /d:root.dc /u:Administrator /pth:hash_password (/p:hash??????)
