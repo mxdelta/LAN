@@ -40,6 +40,8 @@ xfreerdp /v:192.168.50.200 /d:root.dc /u:Administrator /pth:hash_password (/p:ha
 
 xfreerdp /v:192.168.50.200 /d:root.dc /u:administrator /p:Password123 /sec:rdp  - если TLS не поддерживается
 
+xfreerdp /u:Helen /p:'RedRiot88' /d:inlanefreight.local /v:10.129.229.244 /dynamic-resolution /drive:.,linux /bpp:8 /compression -themes -wallpaper /clipboard /audio-mode:0 /auto-reconnect -glyph-cache
+
 FreeRDP( установка sudo apt install freerdp2-x11), Vinagre (установка sudo apt install vinagre)
 
 РДП из коммандной строки виндовс
