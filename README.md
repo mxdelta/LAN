@@ -20,6 +20,33 @@
 
 fping -ag 192.168.50.1/24 2>/dev/null 
 
+pTR спиа по подсети (обратный DNS)
+
+1..254 | ForEach-Object {
+    $ip = "172.30.0.$_"
+    try { $h = [System.Net.Dns]::GetHostEntry($ip).HostName } catch { $h = $null }
+    if ($h) { "$ip  ->  $h" }
+}
+
+Или через DNS-запрос:
+
+1..254 | ForEach-Object {
+    Resolve-DnsName -Type PTR "172.30.0.$_" -ErrorAction SilentlyContinue |
+        Select-Object Name, NameHost
+}
+
+proxychains4 -q nxc ldap 172.30.0.10 -u Arturo -p 'Newyork0293!' --computers
+
+DNS zone transfer (быстрая попытка)
+bash
+Copy
+proxychains4 -q dig AXFR inlanefreight.local @172.30.0.10
+	или
+nslookup
+> server 172.30.0.10
+> ls -d inlanefreight.local
+
+
 # передача файлов по сети
 
 https://steflan-security.com/shell-file-transfer-cheat-sheet/
